@@ -41,22 +41,22 @@ body::before {
 
 /* Container */
 .container {
-    max-width: 1000px;
+    max-width: 900px;
     margin: 0 auto;
-    padding: 2rem 1rem;
+    padding: 1.5rem 1rem;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
-/* Header */
+/* Header - more compact */
 .app-header {
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px);
-    border-radius: 24px;
-    padding: 3rem 2rem;
+    border-radius: 20px;
+    padding: 2rem 1.5rem;
     box-shadow: 
         0 1px 3px rgba(0, 0, 0, 0.05),
         0 10px 50px rgba(139, 92, 246, 0.1);
@@ -64,18 +64,18 @@ body::before {
 }
 
 .logo {
-    font-size: 3.5rem;
+    font-size: 2.8rem;
     font-weight: 700;
     background: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 50%, #06b6d4 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
     letter-spacing: -0.025em;
 }
 
 .tagline {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: #64748b;
     font-weight: 400;
 }
@@ -86,30 +86,30 @@ body::before {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2.5rem;
+    gap: 2rem;
 }
 
-/* Language selector */
+/* Language selector - more compact */
 .language-selector {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px);
-    border-radius: 24px;
-    padding: 3rem;
+    border-radius: 20px;
+    padding: 2rem;
     box-shadow: 
         0 1px 3px rgba(0, 0, 0, 0.05),
         0 10px 50px rgba(139, 92, 246, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.8);
     width: 100%;
-    max-width: 700px;
+    max-width: 650px;
     display: flex;
     flex-direction: column;
-    gap: 2.5rem;
+    gap: 2rem;
 }
 
 .language-row {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
-    gap: 2rem;
+    gap: 1.5rem;
     align-items: end;
 }
 
@@ -124,8 +124,8 @@ body::before {
     background: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
     color: white;
     border: none;
-    width: 48px;
-    height: 48px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -143,52 +143,52 @@ body::before {
 .selector-group {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.5rem;
 }
 
 .selector-group label {
     font-weight: 600;
     color: #374151;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     letter-spacing: -0.01em;
 }
 
 .theme-section {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.5rem;
 }
 
 .theme-section label {
     font-weight: 600;
     color: #374151;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     letter-spacing: -0.01em;
 }
 
 .optional {
     color: #9ca3af;
     font-weight: 400;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
 }
 
 .language-dropdown,
 .theme-input {
-    padding: 1.25rem 1.5rem;
+    padding: 1rem 1.25rem;
     border: 2px solid #e5e7eb;
-    border-radius: 16px;
-    font-size: 1rem;
+    border-radius: 12px;
+    font-size: 0.95rem;
     font-family: inherit;
     background: white;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    min-height: 56px;
+    min-height: 48px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .theme-input {
-    font-size: 1.1rem;
-    padding: 1.5rem;
-    min-height: 64px;
+    font-size: 1rem;
+    padding: 1.25rem;
+    min-height: 52px;
 }
 
 .language-dropdown:focus,
@@ -203,27 +203,27 @@ body::before {
 
 .theme-input::placeholder {
     color: #9ca3af;
-    font-size: 1rem;
+    font-size: 0.95rem;
 }
 
-/* Get words button */
+/* Get words button - more compact */
 .get-words-btn {
-    padding: 1.5rem 3rem;
+    padding: 1.25rem 2.5rem;
     background: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
     color: white;
     border: none;
-    border-radius: 16px;
-    font-size: 1.1rem;
+    border-radius: 14px;
+    font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
-    min-height: 64px;
+    min-height: 56px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.75rem;
+    gap: 0.5rem;
     box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
     letter-spacing: -0.01em;
 }
@@ -258,8 +258,8 @@ body::before {
 
 /* Spinner */
 .spinner {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     border: 2px solid rgba(255, 255, 255, 0.3);
     border-top: 2px solid white;
     border-radius: 50%;
@@ -271,18 +271,18 @@ body::before {
     100% { transform: rotate(360deg); }
 }
 
-/* Words container */
+/* Words container - more compact */
 .words-container {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px);
-    border-radius: 24px;
-    padding: 3rem;
+    border-radius: 20px;
+    padding: 2rem;
     box-shadow: 
         0 1px 3px rgba(0, 0, 0, 0.05),
         0 10px 50px rgba(139, 92, 246, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.8);
     width: 100%;
-    max-width: 900px;
+    max-width: 800px;
     animation: slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -300,33 +300,34 @@ body::before {
 .words-title {
     text-align: center;
     color: #374151;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     font-weight: 600;
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.5rem;
     letter-spacing: -0.01em;
 }
 
+/* Updated word buttons grid for 2 columns of 3 each */
 .word-buttons {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    margin-bottom: 2.5rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 2rem;
 }
 
-/* Word button */
+/* Word button - smaller and more compact */
 .word-btn {
     background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
     color: white;
     border: none;
-    border-radius: 20px;
-    padding: 2.5rem 2rem;
-    font-size: 1.3rem;
+    border-radius: 16px;
+    padding: 1.75rem 1.5rem;
+    font-size: 1.1rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
     overflow: hidden;
-    min-height: 140px;
+    min-height: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -337,8 +338,8 @@ body::before {
 }
 
 .word-btn:hover {
-    transform: translateY(-6px) scale(1.02);
-    box-shadow: 0 12px 40px rgba(59, 130, 246, 0.4);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 8px 30px rgba(59, 130, 246, 0.4);
 }
 
 .word-btn.flipped {
@@ -347,17 +348,17 @@ body::before {
 }
 
 .word-btn.flipped:hover {
-    box-shadow: 0 12px 40px rgba(16, 185, 129, 0.4);
+    box-shadow: 0 8px 30px rgba(16, 185, 129, 0.4);
 }
 
-/* Regenerate button */
+/* Regenerate button - more compact */
 .regenerate-btn {
     background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
     color: white;
     border: none;
-    border-radius: 16px;
-    padding: 1rem 2rem;
-    font-size: 1rem;
+    border-radius: 12px;
+    padding: 0.875rem 1.5rem;
+    font-size: 0.95rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -378,8 +379,8 @@ body::before {
 .error-message {
     background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
     color: #dc2626;
-    padding: 2rem;
-    border-radius: 20px;
+    padding: 1.5rem;
+    border-radius: 16px;
     text-align: center;
     font-weight: 500;
     max-width: 600px;
@@ -395,12 +396,12 @@ body::before {
     }
     
     .app-header {
-        padding: 2rem 1.5rem;
-        margin-bottom: 2rem;
+        padding: 1.5rem 1rem;
+        margin-bottom: 1.5rem;
     }
     
     .logo {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
     }
     
     .tagline {
@@ -409,12 +410,12 @@ body::before {
     
     .language-selector,
     .words-container {
-        padding: 2rem 1.5rem;
+        padding: 1.5rem;
     }
     
     .language-row {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
+        gap: 1rem;
     }
     
     .swap-button-container {
@@ -425,18 +426,18 @@ body::before {
     
     .word-buttons {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
+        gap: 1rem;
     }
     
     .word-btn {
-        padding: 2rem 1.5rem;
-        font-size: 1.2rem;
-        min-height: 120px;
+        padding: 1.5rem 1.25rem;
+        font-size: 1rem;
+        min-height: 90px;
     }
     
     .get-words-btn {
         width: 100%;
-        padding: 1.25rem 2rem;
+        padding: 1rem 1.5rem;
     }
     
     body::before {
@@ -447,7 +448,7 @@ body::before {
 
 @media (max-width: 480px) {
     .app-header {
-        padding: 1.5rem 1rem;
+        padding: 1.25rem 0.75rem;
     }
     
     .logo {
@@ -456,18 +457,18 @@ body::before {
     
     .language-selector,
     .words-container {
-        padding: 1.5rem 1rem;
+        padding: 1.25rem;
     }
     
     .language-dropdown,
     .theme-input {
-        padding: 1rem 1.25rem;
-        font-size: 0.95rem;
+        padding: 0.875rem 1rem;
+        font-size: 0.9rem;
     }
     
     .word-btn {
-        padding: 1.5rem 1rem;
-        font-size: 1.1rem;
-        min-height: 100px;
+        padding: 1.25rem 1rem;
+        font-size: 0.95rem;
+        min-height: 80px;
     }
 }
