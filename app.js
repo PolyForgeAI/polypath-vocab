@@ -137,7 +137,7 @@ class PolypathApp {
 
         const nativeLang = this.nativeLangSelect.value;
         const targetLang = this.targetLangSelect.value;
-        const theme = this.themeInput.value.trim() || '';
+        const theme = this.themeInput.value.trim();
 
         console.log('Request parameters:');
         console.log('- Native Language:', nativeLang);
@@ -150,7 +150,8 @@ class PolypathApp {
         const requestBody = {
             l1: nativeLang,
             tl: targetLang,
-            theme: theme
+            theme: theme || 'basic vocabulary', // Provide fallback for empty theme
+            count: 6 // Request exactly 6 words
         };
         
         console.log('Request body:', JSON.stringify(requestBody, null, 2));
@@ -189,8 +190,13 @@ class PolypathApp {
                 throw new Error('No words received from the server');
             }
 
-            console.log('Successfully received', data.words.length, 'words');
-            this.currentWords = data.words;
+            // Ensure we have exactly 6 words
+            this.currentWords = data.words.slice(0, 6);
+            if (this.currentWords.length < 6) {
+                console.warn(`Only received ${this.currentWords.length} words instead of 6`);
+            }
+            
+            console.log('Successfully received', this.currentWords.length, 'words');
             this.displayWords();
 
         } catch (error) {
@@ -295,7 +301,7 @@ class PolypathApp {
         // Touch and click events
         button.addEventListener('click', flip);
         
-        // Hover events for desktop
+        // Hover events for desktop (fixed the hover issue)
         button.addEventListener('mouseenter', () => {
             if (!('ontouchstart' in window)) { // Only on non-touch devices
                 flip();
