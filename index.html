@@ -1,36 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Polypath</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polypath - Learn Vocabulary by Theme</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="container">
-    <header class="app-header">
-      <h1 class="logo">Polypath</h1>
-      <p class="tagline">Learn vocabulary by theme</p>
-    </header>
-    <div class="selector-group">
-      <label for="native-language">Your Native Language (L1):</label>
-      <select id="native-language" class="language-dropdown">
-        <option value="">Select your native language</option>
-      </select>
+    <div class="container">
+        <header class="app-header">
+            <h1 class="logo">Polypath</h1>
+            <p class="tagline">Learn vocabulary by theme</p>
+        </header>
+
+        <main class="app-main">
+            <div class="language-selector">
+                <div class="language-row">
+                    <div class="selector-group">
+                        <label for="native-lang">Source Language</label>
+                        <select id="native-lang" class="language-dropdown">
+                            <option value="">Select source language</option>
+                            <option value="Arabic">Arabic - العربية</option>
+                            <option value="Chinese">Chinese - 中文</option>
+                            <option value="Danish">Danish - Dansk</option>
+                            <option value="Dutch">Dutch - Nederlands</option>
+                            <option value="English">English</option>
+                            <option value="Finnish">Finnish - Suomi</option>
+                            <option value="French">French - Français</option>
+                            <option value="German">German - Deutsch</option>
+                            <option value="Greek">Greek - Ελληνικά</option>
+                            <option value="Hindi">Hindi - हिन्दी</option>
+                            <option value="Italian">Italian - Italiano</option>
+                            <option value="Japanese">Japanese - 日本語</option>
+                            <option value="Korean">Korean - 한국어</option>
+                            <option value="Norwegian">Norwegian - Norsk</option>
+                            <option value="Polish">Polish - Polski</option>
+                            <option value="Portuguese">Portuguese - Português</option>
+                            <option value="Russian">Russian - Русский</option>
+                            <option value="Spanish">Spanish - Español</option>
+                            <option value="Swedish">Swedish - Svenska</option>
+                            <option value="Turkish">Turkish - Türkçe</option>
+                        </select>
+                    </div>
+
+                    <div class="swap-button-container">
+                        <button id="swap-languages" class="swap-btn" type="button" aria-label="Swap languages">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M8 3L4 7l4 4M4 7h16M16 21l4-4-4-4M20 17H4"/>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="selector-group">
+                        <label for="target-lang">Target Language</label>
+                        <select id="target-lang" class="language-dropdown">
+                            <option value="">Select target language</option>
+                            <option value="Arabic">Arabic - العربية</option>
+                            <option value="Chinese">Chinese - 中文</option>
+                            <option value="Danish">Danish - Dansk</option>
+                            <option value="Dutch">Dutch - Nederlands</option>
+                            <option value="English">English</option>
+                            <option value="Finnish">Finnish - Suomi</option>
+                            <option value="French">French - Français</option>
+                            <option value="German">German - Deutsch</option>
+                            <option value="Greek">Greek - Ελληνικά</option>
+                            <option value="Hindi">Hindi - हिन्दी</option>
+                            <option value="Italian">Italian - Italiano</option>
+                            <option value="Japanese">Japanese - 日本語</option>
+                            <option value="Korean">Korean - 한국어</option>
+                            <option value="Norwegian">Norwegian - Norsk</option>
+                            <option value="Polish">Polish - Polski</option>
+                            <option value="Portuguese">Portuguese - Português</option>
+                            <option value="Russian">Russian - Русский</option>
+                            <option value="Spanish">Spanish - Español</option>
+                            <option value="Swedish">Swedish - Svenska</option>
+                            <option value="Turkish">Turkish - Türkçe</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="theme-section">
+                    <label for="theme-input">Theme <span class="optional">(optional)</span></label>
+                    <input 
+                        type="text" 
+                        id="theme-input" 
+                        class="theme-input" 
+                        placeholder="e.g., animals, food, colors, travel... Leave empty for random A1/A2 words"
+                    >
+                </div>
+
+                <button id="get-words-btn" class="get-words-btn" disabled>
+                    <span class="btn-text">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        Generate Words
+                    </span>
+                    <span class="btn-loader" style="display: none;">
+                        <div class="spinner"></div>
+                        Loading...
+                    </span>
+                </button>
+            </div>
+
+            <div id="words-container" class="words-container" style="display: none;">
+                <h2 class="words-title">Click or hover to reveal translations</h2>
+                <div id="word-buttons" class="word-buttons"></div>
+                <button id="regenerate-btn" class="regenerate-btn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="23 4 23 10 17 10"></polyline>
+                        <polyline points="1 20 1 14 7 14"></polyline>
+                        <path d="m3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                    </svg>
+                    New Words
+                </button>
+            </div>
+
+            <div id="error-message" class="error-message" style="display: none;"></div>
+        </main>
     </div>
-    <div class="selector-group">
-      <label for="target-language">Target Language to Learn (TL):</label>
-      <select id="target-language" class="language-dropdown">
-        <option value="">Select target language to learn</option>
-      </select>
-    </div>
-    <div class="selector-group">
-      <label for="theme-input">Theme:</label>
-      <input id="theme-input" class="theme-input" placeholder="e.g., animals, food, furniture">
-    </div>
-    <button id="new-words-button">New Words</button>
-    <div id="words-container" class="words-container"></div>
-  </div>
-  <script src="app.js"></script>
+
+    <script src="app.js"></script>
 </body>
 </html>
