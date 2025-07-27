@@ -1,1 +1,24 @@
 
+{
+  "name": "polypath-vocab-app",
+  "version": "1.0.0",
+  "description": "A vocabulary learning app with themed word generation",
+  "main": "index.html",
+  "scripts": {
+    "build": "echo 'No build process needed for static site'"
+  },
+  "dependencies": {
+    "openai": "^4.20.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "vocabulary",
+    "language-learning",
+    "netlify",
+    "openai"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}
