@@ -19,7 +19,7 @@ body {
 
 /* Add multilingual welcome text overlay */
 body::before {
-    content: "Welcome • Bienvenido • Bienvenue • Willkommen • Benvenuto • Bem-vindo • Добро пожаловать • 欢迎 • ようこそ • 환영합니다 • أهلا وسهلا • स्वागत है • Welkom • Witaj • Hoş geldin • Välkommen";
+    content: "Welcome • Bienvenido • Bienvenue • Willkommen • Benvenuto • Bem-vindo • Добро пожаловать • 欢迎 • ようこそ • 환영합니다 • أهلا وسهلا • स्वागत है • Welkom • Witaj • Hoş geldin • Välkommen • Velkommen • Croeso";
     position: fixed;
     top: 0;
     left: 0;
@@ -467,4 +467,7 @@ body::before {
     
     .word-btn {
         padding: 1.5rem 1rem;
-        font-size:
+        font-size: 1.1rem;
+        min-height: 100px;
+    }
+}
