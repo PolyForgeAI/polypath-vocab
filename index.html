@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Polypath</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header class="app-header">
+      <h1 class="logo">Polypath</h1>
+      <p class="tagline">Learn vocabulary by theme</p>
+    </header>
+    <div class="selector-group">
+      <label for="native-language">Your Native Language (L1):</label>
+      <select id="native-language" class="language-dropdown">
+        <option value="">Select your native language</option>
+      </select>
+    </div>
+    <div class="selector-group">
+      <label for="target-language">Target Language to Learn (TL):</label>
+      <select id="target-language" class="language-dropdown">
+        <option value="">Select target language to learn</option>
+      </select>
+    </div>
+    <div class="selector-group">
+      <label for="theme-input">Theme:</label>
+      <input id="theme-input" class="theme-input" placeholder="e.g., animals, food, furniture">
+    </div>
+    <button id="new-words-button">New Words</button>
+    <div id="words-container" class="words-container"></div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
