@@ -1,0 +1,1708 @@
+
+🔧 PROJECT BUILD PROMPT (FOR CLAUDE)
+You are an autonomous agent assigned to implement a complete multilingual vocabulary app for Polypath. This project uses OpenAI for translation logic and must be deployable via GitHub and Netlify.
+📍 Project Scope & Stack
+Goal:
+Build a lightweight web app that teaches vocabulary by theme, supporting multiple native (L1) and target (TL) languages. It should fetch 5 words via OpenAI’s API and show them as clickable/hoverable buttons.
+Tools/Platforms:
+GitHub: Code storage and version control
+Netlify: Static hosting and serverless function deployment
+OpenAI API: Used for dynamic TL→L1 word generation
+Optional: Google Fonts for international support
+💡 Core User Experience
+On load, users see a clean welcome page with a light gray background image showing the word “Welcome” in many languages.
+Two dropdowns allow selection of:
+L1 (Native language)
+TL (Target language to learn)
+A text input allows them to choose a Theme (e.g., animals, food, furniture).
+When the user clicks New Words, five buttons appear:
+Each button shows the TL word
+On hover or tap, the button flips to show the L1 translation
+Repeated themes or language selections should still return valid word lists (no caching or filtering that suppresses results).
+Responsive design: must display beautifully on both desktop and mobile.
+🧱 Anticipated File Structure
+All of this will live in a single GitHub repo (e.g., polypath-vocab):
+polypath-vocab/
+├── index.html
+├── styles.css
+├── app.js
+├── netlify/
+│   └── functions/
+│       └── getWords.js
+└── assets/
+        └── bg-welcome.png     ← (generated background image)
+🎨 Design Assets Request
+Please generate and include a background image named bg-welcome.png with:
+Light gray or subtle gradient background
+The word “Welcome” written in 10–20 different languages
+Soft, transparent/low-opacity text
+High enough resolution for both desktop and mobile scaling
+Save into /assets/ folder
+📱 Final Requirements
+Fully responsive layout for phones, tablets, and desktops
+Language dropdowns must be visually accessible and touch-friendly
+Use simple, clean styling with attention to clarity and readability
+Must be functional with OpenAI API key injected via Netlify environment variables
+Netlify function must properly parse l1, tl, and theme parameters and handle GPT markdown if it appears
+🚀 Deployment Readiness
+The app must run instantly upon deploying the GitHub repo to Netlify, requiring no manual builds or frameworks. Use pure HTML/CSS/JS with Netlify Functions (getWords.js) to call OpenAI.
+
+Edit
+I'll build you a complete multilingual vocabulary app for Polypath! This will be a clean, responsive web application that uses OpenAI for translation and is ready for immediate deployment on Netlify.
+
+Let me start by creating the main HTML structure:
+
+
+Polypath Vocabulary App
+Interactive artifact 
+Now let me create the CSS file with responsive design and the welcome background:
+
+
+Polypath Styles (styles.css)
+Code 
+Now let me create the JavaScript file that handles the app logic:
+
+
+Polypath App Logic (app.js)
+Code 
+Now let me create the Netlify function for handling OpenAI API calls:
+
+
+Netlify Function (netlify/functions/getWords.js)
+Code 
+
+
+
+Thanks! Could you please provide the complete content of each file (index.html, styles.css, app.js, netlify/functions/getWords.js) using separate markdown code blocks with the file name indicated above each block? For the background image, please provide a base64 encoded PNG string or describe how to generate it. This will help me copy the code easily.
+
+Edit
+I'll provide you with all the complete files in separate code blocks for easy copying:
+
+index.html
+html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polypath - Learn Vocabulary by Theme</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="app-header">
+            <h1 class="logo">Polypath</h1>
+            <p class="tagline">Learn vocabulary by theme</p>
+        </header>
+
+        <main class="app-main">
+            <div class="language-selector">
+                <div class="selector-group">
+                    <label for="native-lang">Your Native Language (L1):</label>
+                    <select id="native-lang" class="language-dropdown">
+                        <option value="">Select your native language</option>
+                        <option value="English">English</option>
+                        <option value="Spanish">Español (Spanish)</option>
+                        <option value="French">Français (French)</option>
+                        <option value="German">Deutsch (German)</option>
+                        <option value="Italian">Italiano (Italian)</option>
+                        <option value="Portuguese">Português (Portuguese)</option>
+                        <option value="Russian">Русский (Russian)</option>
+                        <option value="Chinese">中文 (Chinese)</option>
+                        <option value="Japanese">日本語 (Japanese)</option>
+                        <option value="Korean">한국어 (Korean)</option>
+                        <option value="Arabic">العربية (Arabic)</option>
+                        <option value="Hindi">हिन्दी (Hindi)</option>
+                        <option value="Dutch">Nederlands (Dutch)</option>
+                        <option value="Polish">Polski (Polish)</option>
+                        <option value="Turkish">Türkçe (Turkish)</option>
+                        <option value="Swedish">Svenska (Swedish)</option>
+                        <option value="Norwegian">Norsk (Norwegian)</option>
+                        <option value="Danish">Dansk (Danish)</option>
+                        <option value="Finnish">Suomi (Finnish)</option>
+                        <option value="Greek">Ελληνικά (Greek)</option>
+                    </select>
+                </div>
+
+                <div class="selector-group">
+                    <label for="target-lang">Target Language to Learn (TL):</label>
+                    <select id="target-lang" class="language-dropdown">
+                        <option value="">Select language to learn</option>
+                        <option value="English">English</option>
+                        <option value="Spanish">Español (Spanish)</option>
+                        <option value="French">Français (French)</option>
+                        <option value="German">Deutsch (German)</option>
+                        <option value="Italian">Italiano (Italian)</option>
+                        <option value="Portuguese">Português (Portuguese)</option>
+                        <option value="Russian">Русский (Russian)</option>
+                        <option value="Chinese">中文 (Chinese)</option>
+                        <option value="Japanese">日本語 (Japanese)</option>
+                        <option value="Korean">한국어 (Korean)</option>
+                        <option value="Arabic">العربية (Arabic)</option>
+                        <option value="Hindi">हिन्दी (Hindi)</option>
+                        <option value="Dutch">Nederlands (Dutch)</option>
+                        <option value="Polish">Polski (Polish)</option>
+                        <option value="Turkish">Türkçe (Turkish)</option>
+                        <option value="Swedish">Svenska (Swedish)</option>
+                        <option value="Norwegian">Norsk (Norwegian)</option>
+                        <option value="Danish">Dansk (Danish)</option>
+                        <option value="Finnish">Suomi (Finnish)</option>
+                        <option value="Greek">Ελληνικά (Greek)</option>
+                    </select>
+                </div>
+
+                <div class="selector-group">
+                    <label for="theme-input">Theme:</label>
+                    <input 
+                        type="text" 
+                        id="theme-input" 
+                        class="theme-input" 
+                        placeholder="e.g., animals, food, furniture, colors..."
+                        maxlength="50"
+                    >
+                </div>
+
+                <button id="get-words-btn" class="get-words-btn" disabled>
+                    <span class="btn-text">New Words</span>
+                    <span class="btn-loader" style="display: none;">
+                        <div class="spinner"></div>
+                        Loading...
+                    </span>
+                </button>
+            </div>
+
+            <div id="words-container" class="words-container" style="display: none;">
+                <h2 class="words-title">Tap or hover to reveal translations</h2>
+                <div id="word-buttons" class="word-buttons"></div>
+            </div>
+
+            <div id="error-message" class="error-message" style="display: none;"></div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
+styles.css
+css
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    line-height: 1.6;
+    color: #2d3748;
+    background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+    background-image: url('./assets/bg-welcome.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+.app-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    font-size: 3rem;
+    font-weight: 600;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+}
+
+.tagline {
+    font-size: 1.2rem;
+    color: #718096;
+    font-weight: 300;
+}
+
+/* Main content */
+.app-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+/* Language selector */
+.language-selector {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.selector-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.selector-group label {
+    font-weight: 500;
+    color: #4a5568;
+    font-size: 1rem;
+}
+
+.language-dropdown,
+.theme-input {
+    padding: 1rem 1.25rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: inherit;
+    background: white;
+    transition: all 0.3s ease;
+    min-height: 50px;
+}
+
+.language-dropdown:focus,
+.theme-input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    transform: translateY(-1px);
+}
+
+.theme-input::placeholder {
+    color: #a0aec0;
+}
+
+/* Get words button */
+.get-words-btn {
+    padding: 1.25rem 2.5rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.get-words-btn:not(:disabled):hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(102, 126, 234, 0.3);
+}
+
+.get-words-btn:disabled {
+    background: #cbd5e0;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.get-words-btn:active {
+    transform: translateY(0);
+}
+
+/* Spinner */
+.spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top: 2px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Words container */
+.words-container {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
+    animation: slideUp 0.6s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.words-title {
+    text-align: center;
+    color: #4a5568;
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+}
+
+.word-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Word button */
+.word-btn {
+    background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+    color: white;
+    border: none;
+    border-radius: 15px;
+    padding: 2rem 1.5rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    perspective: 1000px;
+}
+
+.word-btn:hover {
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 15px 35px rgba(66, 153, 225, 0.4);
+}
+
+.word-btn.flipped {
+    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+}
+
+.word-btn.flipped:hover {
+    box-shadow: 0 15px 35px rgba(72, 187, 120, 0.4);
+}
+
+/* Error message */
+.error-message {
+    background: linear-gradient(135deg, #feb2b2 0%, #fc8181 100%);
+    color: #742a2a;
+    padding: 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+    font-weight: 500;
+    max-width: 600px;
+    animation: slideUp 0.4s ease;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+    
+    .app-header {
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    
+    .logo {
+        font-size: 2.5rem;
+    }
+    
+    .tagline {
+        font-size: 1rem;
+    }
+    
+    .language-selector,
+    .words-container {
+        padding: 2rem;
+    }
+    
+    .word-buttons {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .word-btn {
+        padding: 1.5rem 1rem;
+        font-size: 1.1rem;
+        min-height: 100px;
+    }
+    
+    .get-words-btn {
+        width: 100%;
+        padding: 1rem 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .app-header {
+        padding: 1rem;
+    }
+    
+    .logo {
+        font-size: 2rem;
+    }
+    
+    .language-selector,
+    .words-container {
+        padding: 1.5rem;
+    }
+    
+    .language-dropdown,
+    .theme-input {
+        padding: 0.875rem 1rem;
+        font-size: 0.95rem;
+    }
+    
+    .word-btn {
+        padding: 1.25rem 1rem;
+        font-size: 1rem;
+        min-height: 90px;
+    }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    body {
+        background-size: cover;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    body {
+        background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+    }
+    
+    .app-header,
+    .language-selector,
+    .words-container {
+        background: rgba(45, 55, 72, 0.95);
+        color: #f7fafc;
+    }
+    
+    .tagline,
+    .words-title {
+        color: #cbd5e0;
+    }
+    
+    .selector-group label {
+        color: #e2e8f0;
+    }
+    
+    .language-dropdown,
+    .theme-input {
+        background: #4a5568;
+        border-color: #718096;
+        color: #f7fafc;
+    }
+    
+    .language-dropdown:focus,
+    .theme-input:focus {
+        border-color: #667eea;
+    }
+    
+    .theme-input::placeholder {
+        color: #a0aec0;
+    }
+}
+app.js
+javascript
+class PolypathApp {
+    constructor() {
+        this.initializeElements();
+        this.bindEvents();
+        this.currentWords = [];
+    }
+
+    initializeElements() {
+        this.nativeLangSelect = document.getElementById('native-lang');
+        this.targetLangSelect = document.getElementById('target-lang');
+        this.themeInput = document.getElementById('theme-input');
+        this.getWordsBtn = document.getElementById('get-words-btn');
+        this.wordsContainer = document.getElementById('words-container');
+        this.wordButtonsContainer = document.getElementById('word-buttons');
+        this.errorMessage = document.getElementById('error-message');
+        this.btnText = this.getWordsBtn.querySelector('.btn-text');
+        this.btnLoader = this.getWordsBtn.querySelector('.btn-loader');
+    }
+
+    bindEvents() {
+        // Enable/disable button based on form completion
+        [this.nativeLangSelect, this.targetLangSelect, this.themeInput].forEach(element => {
+            element.addEventListener('input', () => this.validateForm());
+            element.addEventListener('change', () => this.validateForm());
+        });
+
+        // Handle form submission
+        this.getWordsBtn.addEventListener('click', () => this.fetchWords());
+        
+        // Handle Enter key in theme input
+        this.themeInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !this.getWordsBtn.disabled) {
+                this.fetchWords();
+            }
+        });
+    }
+
+    validateForm() {
+        const isValid = this.nativeLangSelect.value && 
+                       this.targetLangSelect.value && 
+                       this.themeInput.value.trim() && 
+                       this.nativeLangSelect.value !== this.targetLangSelect.value;
+        
+        this.getWordsBtn.disabled = !isValid;
+        
+        // Show error if same languages selected
+        if (this.nativeLangSelect.value && this.targetLangSelect.value && 
+            this.nativeLangSelect.value === this.targetLangSelect.value) {
+            this.showError('Please select different languages for native and target.');
+        } else {
+            this.hideError();
+        }
+    }
+
+    async fetchWords() {
+        if (this.getWordsBtn.disabled) return;
+
+        const nativeLang = this.nativeLangSelect.value;
+        const targetLang = this.targetLangSelect.value;
+        const theme = this.themeInput.value.trim();
+
+        this.setLoadingState(true);
+        this.hideError();
+
+        try {
+            const response = await fetch('/.netlify/functions/getWords', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    l1: nativeLang,
+                    tl: targetLang,
+                    theme: theme
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error(`Server error: ${response.status}`);
+            }
+
+            const data = await response.json();
+            
+            if (data.error) {
+                throw new Error(data.error);
+            }
+
+            if (!data.words || !Array.isArray(data.words) || data.words.length === 0) {
+                throw new Error('No words received from the server');
+            }
+
+            this.currentWords = data.words;
+            this.displayWords();
+
+        } catch (error) {
+            console.error('Error fetching words:', error);
+            this.showError(`Failed to get words: ${error.message}`);
+        } finally {
+            this.setLoadingState(false);
+        }
+    }
+
+    setLoadingState(loading) {
+        if (loading) {
+            this.btnText.style.display = 'none';
+            this.btnLoader.style.display = 'flex';
+            this.getWordsBtn.disabled = true;
+        } else {
+            this.btnText.style.display = 'inline';
+            this.btnLoader.style.display = 'none';
+            this.validateForm(); // Re-enable button if form is valid
+        }
+    }
+
+    displayWords() {
+        // Clear previous words
+        this.wordButtonsContainer.innerHTML = '';
+        
+        // Create word buttons
+        this.currentWords.forEach((wordPair, index) => {
+            const button = this.createWordButton(wordPair, index);
+            this.wordButtonsContainer.appendChild(button);
+        });
+
+        // Show the words container with animation
+        this.wordsContainer.style.display = 'block';
+        
+        // Scroll to words container smoothly
+        setTimeout(() => {
+            this.wordsContainer.scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'start' 
+            });
+        }, 100);
+    }
+
+    createWordButton(wordPair, index) {
+        const button = document.createElement('button');
+        button.className = 'word-btn';
+        button.textContent = wordPair.target || 'Unknown word';
+        button.setAttribute('aria-label', `${wordPair.target} - click to see translation`);
+        
+        let isFlipped = false;
+        let flipTimeout;
+
+        const flip = () => {
+            if (flipTimeout) {
+                clearTimeout(flipTimeout);
+            }
+
+            if (!isFlipped) {
+                button.textContent = wordPair.native || 'Translation unavailable';
+                button.classList.add('flipped');
+                isFlipped = true;
+                
+                // Auto-flip back after 3 seconds
+                flipTimeout = setTimeout(() => {
+                    button.textContent = wordPair.target || 'Unknown word';
+                    button.classList.remove('flipped');
+                    isFlipped = false;
+                }, 3000);
+            } else {
+                button.textContent = wordPair.target || 'Unknown word';
+                button.classList.remove('flipped');
+                isFlipped = false;
+            }
+        };
+
+        // Touch and click events
+        button.addEventListener('click', flip);
+        
+        // Hover events for desktop
+        button.addEventListener('mouseenter', () => {
+            if (!('ontouchstart' in window)) { // Only on non-touch devices
+                flip();
+            }
+        });
+
+        button.addEventListener('mouseleave', () => {
+            if (!('ontouchstart' in window) && isFlipped) { // Only on non-touch devices
+                setTimeout(() => {
+                    if (isFlipped) {
+                        button.textContent = wordPair.target || 'Unknown word';
+                        button.classList.remove('flipped');
+                        isFlipped = false;
+                    }
+                }, 500);
+            }
+        });
+
+        return button;
+    }
+
+    showError(message) {
+        this.errorMessage.textContent = message;
+        this.errorMessage.style.display = 'block';
+        this.wordsContainer.style.display = 'none';
+    }
+
+    hideError() {
+        this.errorMessage.style.display = 'none';
+    }
+}
+
+// Initialize app when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    new PolypathApp();
+});
+
+// Handle service worker registration for PWA capabilities (optional enhancement)
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch(() => {
+            // Service worker registration failed, but app continues to work
+        });
+    });
+}
+netlify/functions/getWords.js
+javascript
+const fetch = require('node-fetch');
+
+exports.handler = async (event, context) => {
+    // Set CORS headers
+    const headers = {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+        'Content-Type': 'application/json'
+    };
+
+    // Handle preflight requests
+    if (event.httpMethod === 'OPTIONS') {
+        return {
+            statusCode: 200,
+            headers,
+            body: ''
+        };
+    }
+
+    // Only allow POST requests
+    if (event.httpMethod !== 'POST') {
+        return {
+            statusCode: 405,
+            headers,
+            body: JSON.stringify({ error: 'Method not allowed' })
+        };
+    }
+
+    try {
+        // Parse request body
+        const { l1, tl, theme } = JSON.parse(event.body);
+
+        // Validate inputs
+        if (!l1 || !tl || !theme) {
+            return {
+                statusCode: 400,
+                headers,
+                body: JSON.stringify({ error: 'Missing required parameters: l1, tl, theme' })
+            };
+        }
+
+        if (l1 === tl) {
+            return {
+                statusCode: 400,
+                headers,
+                body: JSON.stringify({ error: 'Native and target languages must be different' })
+            };
+        }
+
+        // Check for OpenAI API key
+        if (!process.env.OPENAI_API_KEY) {
+            return {
+                statusCode: 500,
+                headers,
+                body: JSON.stringify({ error: 'OpenAI API key not configured' })
+            };
+        }
+
+        // Prepare the prompt for OpenAI
+        const prompt = `Generate exactly 5 vocabulary words related to the theme "${theme}" in ${tl} with their translations in ${l1}. 
+
+Return the response in this exact JSON format:
+{
+  "words": [
+    {"target": "word_in_${tl}", "native": "translation_in_${l1}"},
+    {"target": "word_in_${tl}", "native": "translation_in_${l1}"},
+    {"target": "word_in_${tl}", "native": "translation_in_${l1}"},
+    {"target": "word_in_${tl}", "native": "translation_in_${l1}"},
+    {"target": "word_in_${tl}", "native": "translation_in_${l1}"}
+  ]
+}
+
+Important guidelines:
+- Choose common, useful vocabulary words that beginners would benefit from learning
+- Ensure all words are directly related to the theme "${theme}"
+- Provide accurate translations
+- Use proper spelling and formatting for both languages
+- Return only the JSON object, no additional text or markdown formatting
+- Make sure the JSON is valid and parseable`;
+
+        // Call OpenAI API
+        const openaiResponse = await fetch('https://api.openai.com/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                model: 'gpt-3.5-turbo',
+                messages: [
+                    {
+                        role: 'user',
+                        content: prompt
+                    }
+                ],
+                max_tokens: 500,
+                temperature: 0.7
+            })
+        });
+
+        if (!openaiResponse.ok) {
+            const errorData = await openaiResponse.text();
+            console.error('OpenAI API error:', errorData);
+            return {
+                statusCode: 500,
+                headers,
+                body: JSON.stringify({ error: 'Failed to generate words from OpenAI' })
+            };
+        }
+
+        const openaiData = await openaiResponse.json();
+        
+        if (!openaiData.choices || !openaiData.choices[0] || !openaiData.choices[0].message) {
+            console.error('Unexpected OpenAI response format:', openaiData);
+            return {
+                statusCode: 500,
+                headers,
+                body: JSON.stringify({ error: 'Invalid response from OpenAI' })
+            };
+        }
+
+        let responseText = openaiData.choices[0].message.content.trim();
+        
+        // Remove markdown code blocks if present
+        responseText = responseText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+        
+        // Parse the JSON response
+        let wordsData;
+        try {
+            wordsData = JSON.parse(responseText);
+        } catch (parseError) {
+            console.error('JSON parse error:', parseError);
+            console.error('Response text:', responseText);
+            return {
+                statusCode: 500,
+                headers,
+                body: JSON.stringify({ error: 'Failed to parse OpenAI response' })
+            };
+        }
+
+        // Validate the response structure
+        if (!wordsData.words || !Array.isArray(wordsData.words) || wordsData.words.length !== 5) {
+            console.error('Invalid words data structure:', wordsData);
+            return {
+                statusCode: 500,
+                headers,
+                body: JSON.stringify({ error: 'Invalid word data received from OpenAI' })
+            };
+        }
+
+        // Validate each word object
+        const validWords = wordsData.words.filter(word => 
+            word && 
+            typeof word === 'object' && 
+            word.target && 
+            word.native &&
+            typeof word.target === 'string' &&
+            typeof word.native === 'string' &&
+            word.target.trim() !== '' &&
+            word.native.trim() !== ''
+        );
+
+        if (validWords.length < 5) {
+            console.error('Not enough valid words received:', validWords);
+            return {
+                statusCode: 500,
+                headers,
+                body: JSON.stringify({ error: 'Insufficient valid words generated' })
+            };
+        }
+
+        // Return the validated words
+        return {
+            statusCode: 200,
+            headers,
+            body: JSON.stringify({ 
+                words: validWords.slice(0, 5) // Ensure exactly 5 words
+            })
+        };
+
+    } catch (error) {
+        console.error('Function error:', error);
+        return {
+            statusCode: 500,
+            headers,
+            body: JSON.stringify({ error: 'Internal server error' })
+        };
+    }
+};
+Background Image Generation
+For the background image (assets/bg-welcome.png), you have a few options:
+
+Option 1: Use CSS-generated background (Recommended)
+Instead of using an image file, you can replace the background-image line in styles.css with this CSS-only approach:
+
+css
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    line-height: 1.6;
+    color: #2d3748;
+    background: 
+        radial-gradient(circle at 20% 20%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.1) 0%, transparent 50%),
+        linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+/* Add this pseudo-element for the welcome text overlay */
+body::before {
+    content: "Welcome • Bienvenido • Bienvenue • Willkommen • Benvenuto • Bem-vindo • Добро пожаловать • 欢迎 • ようこそ • 환영합니다 • أهلا وسهلا • स्वागत है • Welkom • Witaj • Hoş geldin • Välkommen";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items
+
+
+
+Continue
+
+Edit
+css
+   align-items: center;
+   justify-content: center;
+   font-size: 1.5rem;
+   font-weight: 300;
+   color: rgba(102, 126, 234, 0.15);
+   text-align: center;
+   line-height: 2;
+   z-index: -1;
+   pointer-events: none;
+   word-wrap: break-word;
+   padding: 2rem;
+}
+Option 2: Create a simple PNG file
+If you prefer to use an actual image file, create a folder called assets and add a file called bg-welcome.png. You can create this using any image editor or online tool with these specifications:
+
+Size: 1920x1080px (or larger for high-DPI displays)
+Background: Light gray gradient (
+#f7fafc to 
+#edf2f7)
+Text: "Welcome" in multiple languages with 15-20% opacity
+Languages to include: Welcome, Bienvenido, Bienvenue, Willkommen, Benvenuto, Bem-vindo, Добро пожаловать, 欢迎, ようこそ, 환영합니다, أهلا وسهلا, स्वागत है, Welkom, Witaj, Hoş geldin, Välkommen
+Option 3: Remove background image entirely
+If you want to keep it simple, just remove this line from the CSS:
+
+css
+background-image: url('./assets/bg-welcome.png');
+Deployment Instructions
+Create GitHub Repository:
+Create a new repository called polypath-vocab
+Upload all the files in the correct structure
+Make sure netlify/functions/getWords.js is in the correct nested folder
+Deploy to Netlify:
+Connect your GitHub repo to Netlify
+Set the environment variable OPENAI_API_KEY in Netlify's dashboard
+The app will deploy automatically
+File Structure:
+polypath-vocab/
+├── index.html
+├── styles.css
+├── app.js
+├── netlify/
+│   └── functions/
+│       └── getWords.js
+└── assets/
+    └── bg-welcome.png (optional)
+The app is fully responsive and will work immediately upon deployment. Users can select their native language, target language, enter a theme, and get 5 vocabulary words with flip animations to reveal translations!
+
+
+
+
+Please provide the code for app.js, netlify/functions/getWords.js, and the design asset (bg-welcome.png) or its generation instructions, in separate markdown code blocks.
+
+Edit
+app.js
+javascript
+class PolypathApp {
+    constructor() {
+        this.initializeElements();
+        this.bindEvents();
+        this.currentWords = [];
+    }
+
+    initializeElements() {
+        this.nativeLangSelect = document.getElementById('native-lang');
+        this.targetLangSelect = document.getElementById('target-lang');
+        this.themeInput = document.getElementById('theme-input');
+        this.getWordsBtn = document.getElementById('get-words-btn');
+        this.wordsContainer = document.getElementById('words-container');
+        this.wordButtonsContainer = document.getElementById('word-buttons');
+        this.errorMessage = document.getElementById('error-message');
+        this.btnText = this.getWordsBtn.querySelector('.btn-text');
+        this.btnLoader = this.getWordsBtn.querySelector('.btn-loader');
+    }
+
+    bindEvents() {
+        // Enable/disable button based on form completion
+        [this.nativeLangSelect, this.targetLangSelect, this.themeInput].forEach(element => {
+            element.addEventListener('input', () => this.validateForm());
+            element.addEventListener('change', () => this.validateForm());
+        });
+
+        // Handle form submission
+        this.getWordsBtn.addEventListener('click', () => this.fetchWords());
+        
+        // Handle Enter key in theme input
+        this.themeInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !this.getWordsBtn.disabled) {
+                this.fetchWords();
+            }
+        });
+    }
+
+    validateForm() {
+        const isValid = this.nativeLangSelect.value && 
+                       this.targetLangSelect.value && 
+                       this.themeInput.value.trim() && 
+                       this.nativeLangSelect.value !== this.targetLangSelect.value;
+        
+        this.getWordsBtn.disabled = !isValid;
+        
+        // Show error if same languages selected
+        if (this.nativeLangSelect.value && this.targetLangSelect.value && 
+            this.nativeLangSelect.value === this.targetLangSelect.value) {
+            this.showError('Please select different languages for native and target.');
+        } else {
+            this.hideError();
+        }
+    }
+
+    async fetchWords() {
+        if (this.getWordsBtn.disabled) return;
+
+        const nativeLang = this.nativeLangSelect.value;
+        const targetLang = this.targetLangSelect.value;
+        const theme = this.themeInput.value.trim();
+
+        this.setLoadingState(
+
+
+
+Please provide the code for netlify/functions/getWords.js in a markdown code block.
+
+Edit
+netlify/functions/getWords.js
+javascript
+const fetch = require('node-fetch');
+
+exports.handler = async (event, context) => {
+    // Set CORS headers
+    const headers = {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+        'Content-Type': 'application/json'
+    };
+
+    // Handle preflight requests
+    if (event.httpMethod === 'OPTIONS') {
+        return {
+            statusCode: 200,
+            headers,
+            body: ''
+        };
+    }
+
+    // Only allow POST requests
+    if (event.httpMethod !== 'POST') {
+        return {
+            statusCode: 405,
+            headers,
+            body: JSON.stringify({ error: 'Method not allowed' })
+        };
+    }
+
+    try {
+        // Parse request body
+        const { l1, tl, theme } = JSON.parse(event.body);
+
+        // Validate inputs
+        if (!l1 || !tl || !theme) {
+            return {
+                statusCode: 400,
+                headers,
+                body: JSON.stringify({ error: 'Missing required parameters: l1, tl, theme' })
+            };
+        }
+
+        if (l1 === tl) {
+            return {
+                statusCode: 400,
+                headers,
+                body: JSON.stringify({ error: 'Native and target languages must be different' })
+            };
+        }
+
+        // Check for OpenAI API key
+        if (!process.env.OPENAI_API_KEY) {
+            return {
+                statusCode: 500,
+                headers,
+                body: JSON.stringify({ error: 'OpenAI API key not configured' })
+            };
+        }
+
+        // Prepare the prompt for OpenAI
+        const prompt = `Generate exactly 5 vocabulary words related to the theme "${theme}" in ${tl} with their translations in ${l1}. 
+
+Return the response in this exact JSON format:
+{
+  "words": [
+    {"target": "word_in_${tl}", "native": "translation_in_${l1}"},
+    {"target": "word_in_${tl}", "native": "translation_in_${l1}"},
+    {"target": "word_in_${tl}", "native": "translation_in_${l1}"},
+    {"target": "word_in_${tl}", "native": "translation_in_${l1}"},
+    {"target": "word_in_${tl}", "native": "translation_in_${l1}"}
+  ]
+}
+
+Important guidelines:
+- Choose common, useful vocabulary words that beginners would benefit from learning
+- Ensure all words are directly related to the theme "${theme}"
+- Provide accurate translations
+- Use proper spelling and formatting for both languages
+- Return only the JSON object, no additional text or markdown formatting
+- Make sure the JSON is valid and parseable`;
+
+        // Call OpenAI API
+        const openaiResponse = await fetch('https://api.openai.com/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                model: 'gpt-3.5-turbo',
+                messages: [
+                    {
+                        role: 'user',
+                        content: prompt
+                    }
+                ],
+                max_tokens: 500,
+                temperature: 0.7
+            })
+        });
+
+        if (!openaiResponse.ok) {
+            const errorData = await openaiResponse.text();
+            console.error('OpenAI API error:', errorData);
+            return {
+                statusCode: 500,
+                headers,
+                body: JSON.stringify({ error: 'Failed to generate words from OpenAI' })
+            };
+        }
+
+        const openaiData = await openaiResponse.json();
+        
+        if (!openaiData.choices || !openaiData.choices[0] || !openaiData.choices[0].message) {
+            console.error('Unexpected OpenAI response format:', openaiData);
+            return {
+                statusCode: 500,
+                headers,
+                body: JSON.stringify({ error: 'Invalid response from OpenAI' })
+            };
+        }
+
+        let responseText = openaiData.choices[0].message.content.trim();
+        
+        // Remove markdown code blocks if present
+        responseText = responseText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+        
+        // Parse the JSON response
+        let wordsData;
+        try {
+            wordsData = JSON.parse(responseText);
+        } catch (parseError) {
+            console.error('JSON parse error:', parseError);
+            console.error('Response text:', responseText);
+            return {
+                statusCode: 500,
+                headers,
+                body: JSON.stringify({ error: 'Failed to parse OpenAI response' })
+            };
+        }
+
+        // Validate the response structure
+        if (!wordsData.words || !Array.isArray(wordsData.words) || wordsData.words.length !== 5) {
+            console.error('Invalid words data structure:', wordsData);
+            return {
+                statusCode: 500,
+                headers,
+                body: JSON.stringify({ error: 'Invalid word data received from OpenAI' })
+            };
+        }
+
+        // Validate
+
+
+
+Please provide the design instructions or a base64 encoded file for the background image (bg-welcome.png) used in the project.
+
+Edit
+Background Image Generation Instructions (bg-welcome.png)
+Method 1: CSS-Only Background (Recommended - No Image File Needed)
+Replace the background-image line in your CSS with this code instead:
+
+css
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    line-height: 1.6;
+    color: #2d3748;
+    background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* Add multilingual welcome text overlay */
+body::before {
+    content: "Welcome Bienvenido Bienvenue Willkommen Benvenuto Bem-vindo Добро пожаловать 欢迎 ようこそ 환영합니다 أهلا وسهلا स्वागत है Welkom Witaj Hoş geldin Välkommen Tervetuloa Καλώς ήρθατε";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(0.8rem, 2vw, 1.2rem);
+    font-weight: 200;
+    color: rgba(102, 126, 234, 0.08);
+    text-align: center;
+    line-height: 1.8;
+    z-index: -1;
+    pointer-events: none;
+    word-spacing: 2rem;
+    letter-spacing: 0.1em;
+    padding: 2rem;
+    transform: rotate(-5deg);
+}
+Method 2: Create PNG File Using Online Tools
+If you prefer an actual image file, create assets/bg-welcome.png using these specifications:
+
+Image Specifications:
+
+Dimensions: 1920x1080px (Full HD)
+Format: PNG with transparency support
+File size: Keep under 500KB for fast loading
+Design Elements:
+
+Background: Light gray gradient from 
+#f7fafc (top-left) to 
+#edf2f7 (bottom-right)
+Text Elements:
+Font: Sans-serif (
+
+
+
+
+
+
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    line-height: 1.6;
+    color: #2d3748;
+    background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+    background-image: url('./assets/bg-welcome.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+.app-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    font-size: 3rem;
+    font-weight: 600;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+}
+
+.tagline {
+    font-size: 1.2rem;
+    color: #718096;
+    font-weight: 300;
+}
+
+/* Main content */
+.app-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+/* Language selector */
+.language-selector {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.selector-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.selector-group label {
+    font-weight: 500;
+    color: #4a5568;
+    font-size: 1rem;
+}
+
+.language-dropdown,
+.theme-input {
+    padding: 1rem 1.25rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: inherit;
+    background: white;
+    transition: all 0.3s ease;
+    min-height: 50px;
+}
+
+.language-dropdown:focus,
+.theme-input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    transform: translateY(-1px);
+}
+
+.theme-input::placeholder {
+    color: #a0aec0;
+}
+
+/* Get words button */
+.get-words-btn {
+    padding: 1.25rem 2.5rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.get-words-btn:not(:disabled):hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(102, 126, 234, 0.3);
+}
+
+.get-words-btn:disabled {
+    background: #cbd5e0;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.get-words-btn:active {
+    transform: translateY(0);
+}
+
+/* Spinner */
+.spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top: 2px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Words container */
+.words-container {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
+    animation: slideUp 0.6s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.words-title {
+    text-align: center;
+    color: #4a5568;
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+}
+
+.word-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Word button */
+.word-btn {
+    background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+    color: white;
+    border: none;
+    border-radius: 15px;
+    padding: 2rem 1.5rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    perspective: 1000px;
+}
+
+.word-btn:hover {
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 15px 35px rgba(66, 153, 225, 0.4);
+}
+
+.word-btn.flipped {
+    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+}
+
+.word-btn.flipped:hover {
+    box-shadow: 0 15px 35px rgba(72, 187, 120, 0.4);
+}
+
+/* Error message */
+.error-message {
+    background: linear-gradient(135deg, #feb2b2 0%, #fc8181 100%);
+    color: #742a2a;
+    padding: 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+    font-weight: 500;
+    max-width: 600px;
+    animation: slideUp 0.4s ease;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+    
+    .app-header {
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    
+    .logo {
+        font-size: 2.5rem;
+    }
+    
+    .tagline {
+        font-size: 1rem;
+    }
+    
+    .language-selector,
+    .words-container {
+        padding: 2rem;
+    }
+    
+    .word-buttons {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .word-btn {
+        padding: 1.5rem 1rem;
+        font-size: 1.1rem;
+        min-height: 100px;
+    }
+    
+    .get-words-btn {
+        width: 100%;
+        padding: 1rem 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .app-header {
+        padding: 1rem;
+    }
+    
+    .logo {
+        font-size: 2rem;
+    }
+    
+    .language-selector,
+    .words-container {
+        padding: 1.5rem;
+    }
+    
+    .language-dropdown,
+    .theme-input {
+        padding: 0.875rem 1rem;
+        font-size: 0.95rem;
+    }
+    
+    .word-btn {
+        padding: 1.25rem 1rem;
+        font-size: 1rem;
+        min-height: 90px;
+    }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    body {
+        background-size: cover;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    body {
+        background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+    }
+    
+    .app-header,
+    .language-selector,
+    .words-container {
+        background: rgba(45, 55, 72, 0.95);
+        color: #f7fafc;
+    }
+    
+    .tagline,
+    .words-title {
+        color: #cbd5e0;
+    }
+    
+    .selector-group label {
+        color: #e2e8f0;
+    }
+    
+    .language-dropdown,
+    .theme-input {
+        background: #4a5568;
+        border-color: #718096;
+        color: #f7fafc;
+    }
+    
+    .language-dropdown:focus,
+    .theme-input:focus {
+        border-color: #667eea;
+    }
+    
+    .theme-input::placeholder {
+        color: #a0aec0;
+    }
+}
+Polypath Multilingual Vocabulary App - Claude
